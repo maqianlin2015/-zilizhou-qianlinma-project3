@@ -76,7 +76,7 @@ app.use(express.urlencoded({ extended: true }));
 // 即 第九行 pokemon （也就是一个pokemon.js文件实际上）
 app.use('/api/pokemon', pokemon); // PS： pokemon.js中，看我的<1>
 app.use('/api/users', users);
-app.use('api/jobs', jobs);
+app.use('/api/jobs', jobs);
 // Note that it is common practice got backend APIs in Node to start with the api prefix
 // to distinguish them from frontend routes 
 
