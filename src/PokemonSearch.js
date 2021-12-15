@@ -7,12 +7,8 @@ function App() {
     name: 'No pokemon selected', health: -1,
   })
   const [errorMsg, setError] = useState(null);
-  // 当我click，value in the input filed会被searched on the back end,
-  // 获得信息后，改变前端
-  function onSearchButtonClick() {
-    // const pokemon = axios.get('...')
-    // console.log(pokemon);
-    
+
+  function onSearchButtonClick() {    
     if (!formInput) {
       setError("You must type in a Pokemon name.");
       return;

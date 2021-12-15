@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import PokemonSearchBar from './PokemonList';
 
 
 export default function() {
@@ -8,18 +9,14 @@ export default function() {
     const pokemonName = useParams().pokemonName;
 
     function findPokemonDetails() {
-
-        axios.get('/api/pokemon/find/' + pokemonName)
+        axios.get('api/pokemon/find/' + pokemonName)
             .then(response => setPokemon(response.data))
             .then(error => console.log("Could not find Pokemon"));
-
     }
 
-
+console.log("pkm is:" + pokemon);
     const [pokemon, setPokemon] = useState(null);
-    // useEffect干啥的？
     useEffect(findPokemonDetails, []);
-
 
     const pokemonComponent = pokemon ? 
         (<><div>

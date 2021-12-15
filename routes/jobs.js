@@ -3,22 +3,38 @@ const auth_middleware = require('./auth_middleware');
 const router = express.Router();
 const JobAccessor = require('./models/Job.Model');
 
-// Returns all known job
 router.get('/findAll', function(request, response) {
   return JobAccessor.getAllJobs()
     .then(jobResponse => response.status(200).send(jobResponse))
     .catch(error => response.status(400).send(error))
 })
 
+// find by job id. 用于对一个certain job做detail
+router.get('/find/findById/:jobId', (request, response) => {
+  console.log("成功跑了jobs。js中的get find by id");
+  const jobIdSearch = request.params.jobId;
+  console.log("this is jobId: " + jobIdSearch);
+  return JobAccessor.findJobById(jobIdSearch)
+    .then((jobResponse) =>{
+        if(!jobResponse) {
+            response.status(404).send("Job not found");
+        } else {
+            response.status(200).send(jobResponse);
+        }       
+    })
+    .catch((error) => response.status(500).send("Issue getting job"))
+})
+
+
 router.get('/find/:searchTitle', (request, response) => {
     const searchTitle = request.params.searchTitle;
+    console.log("this is searchTitle: " + searchTitle);
     const caseInsensitiveSearchTitle =  searchTitle.toLowerCase();
-    return JobModel.findJobByTitle(caseInsensitiveSearchTitle)
+    return JobModel.findJobByTitleExactly(caseInsensitiveSearchTitle)
       .then((jobResponse) => {
           if(!jobResponse) {
               response.status(404).send("Job not found");
-          }
-  
+          }  
           response.send(jobResponse)
       })
       .catch((error) => response.status(500).send("Issue getting job"))
@@ -32,12 +48,11 @@ router.get('/find/:searchTitle', (request, response) => {
 // })
 
 
-router.post('/createJob', auth_middleware, (request, response) => {
+router.post('/create', auth_middleware, (request, response) => {
   const job = request.body;
   // 收到request body，要title转成小写的：
-  job.title = job.title.toLowerCase();
-
-  if(!job.title || !job.location || !job.companyName || !job.description || !job.employerEmail
+  // job.title = job.title.toLowerCase();
+  if(!job.id ||!job.title || !job.location || !job.companyName || !job.description || !job.employerEmail
     || !job.companyLink || !job.postdate) {
     return response.status(422).send("Missing data");
   }

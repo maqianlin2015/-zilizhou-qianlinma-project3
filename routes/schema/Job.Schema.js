@@ -1,7 +1,7 @@
-//mongoose提供的class -> Schema 
 const Schema = require('mongoose').Schema;
 
-exports.JobSchema = new Schema({    
+exports.JobSchema = new Schema({   
+    id: String, 
     title: String,
     location: String,
     companyName: String,
@@ -10,4 +10,3 @@ exports.JobSchema = new Schema({
     companyLink: String,
     postdate: String,
 }, { collection : 'jobs' });
-// 最后一行，意思是，also create a collection called jobs 

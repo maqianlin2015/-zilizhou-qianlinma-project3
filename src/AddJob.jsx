@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+const { v4: uuid } = require('uuid');
 
 export default function AddJob(props) {
     const navigate = useNavigate();
     const [jobForm, setJobForm] = useState({
+        id: uuid(),
         title: '',
         location: '',
         companyName: '',
@@ -13,23 +15,26 @@ export default function AddJob(props) {
         companyLink: '',
         postdate: '',
     });
+
     const [myJob, setMyJob] = useState([])
 
-    // 用axios making api request to local node server    
-    // axios.get(one url)是从前段往后端发送get信息，根据url，return的东西叫“promise”
-    // promise is Java scripts way of doing asynchronous data handling.
-    // 既然promise回来了，我要access to this data and use it
+    function getMyJob() {
+        axios.get('/api/jobs/findAll')
+            .then(response => setMyJob(response.data))
+            .catch(error => console.log(error));
+    }
+ 
 
-    // axios有一个async问题
+    function checkLogin() {
+        axios.get('/api/users/whoIsLoggedIn')
+            .then(() => console.log("Success"))
+            .catch(() => navigate('/'))
+    }
 
-    // function getMyPokemon() {
-    //     axios.get('/api/job/myjob')
-    //         .then(response => setMyPokemon(response.data))
-    //         .catch(error => console.log(error));
-    // }
+    useEffect(checkLogin, []);
 
+    useEffect(getMyJob, []);
 
-    // useEffect(getMyPokemon, []);
 
 
     const jobElement = [];
@@ -88,18 +93,16 @@ export default function AddJob(props) {
                 })} ></input>
 
             <button onClick={
-                () => axios.post('/api/jobs/createJob/', jobForm)
+                () => axios.post('/api/jobs/create', jobForm)
                     .then(response => {
-                        // getMyJob()
+                        getMyJob()
                         console.log(response)
                     })
-                    .catch(error => console.error(error))
+                    .catch(error => console.error( error))
             }>
                 Submit
             </button>
             {jobElement}
         </div>
     )
-
-
 }

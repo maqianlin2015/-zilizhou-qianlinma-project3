@@ -80,15 +80,6 @@ app.use('/api/jobs', jobs);
 // Note that it is common practice got backend APIs in Node to start with the api prefix
 // to distinguish them from frontend routes 
 
-// app这个名字我const app建立的，但后面.get是express library本来有的
-// 意思是：如果给一个url：/ 且http get request，我就返NOT BANANA回
-// req, res是object，res是express帮你建立的
-app.get('/banana', (req, res) => {
-    res.send('NOT BANANA!');
-});
-
-// https://www.amazon.com/gp/css/order-history
-
 app.use(express.static(path.join(__dirname, 'build')));
 //最后在这写的是，如果path不match以上的，
 // index.html是complied version

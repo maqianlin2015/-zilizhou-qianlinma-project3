@@ -1,36 +1,19 @@
 const express = require('express');
 const auth_middleware = require('./auth_middleware');
-// <1> 
-// const router = express.Router();
-// ...
-//router.get... 
 // 这么做是因为在server.js中已经有了app.use把一个固定前缀的request引过来，在这里你就用rounte接着引导：
 // 比如下面router.get('/findAll', function(request, response)
 // 补全了其实是 api/pokemon/findAll
-
 const router = express.Router();
 // used to connect my code pkm.js to model (model can help to connect to DB)
 const PokemonAccessor = require('./models/Pokemon.Model');
 
-
-// const pokemons = [
-//   {   
-//       name:'charizard',
-//       health: 10,
-//   },
-//   {
-//       name: 'pikachu',
-//       health: 50,
-//   }
-// ]
 
 // Returns all known pokemon
 router.get('/findAll', function(request, response) {
   return PokemonAccessor.getAllPokemon()
     .then(pokemonResponse => response.status(200).send(pokemonResponse))
     .catch(error => response.status(400).send(error))
-    //pokemonResponse这里就是要用different word，从而和response不同
-    // 因为pokemonResponse有点像是DB返回的，但是response是最终http返回的，要把pokemonResponse包含到resonse返回 
+    // pokemonResponse有点像是DB返回的，但是response是最终http返回的，要把pokemonResponse包含到resonse返回 
 })
 
 // 我只是得到属于我自己这个owner的pkm
@@ -72,7 +55,7 @@ router.get('/myPokemon', auth_middleware, function(request, response) {
 // router.get('/find/:pokemonName', function(req, res) {
 //   const pokemonQuery = req.params.pokemonName;
 //   let foundPokemon = null;
-    // YC： in loop - index/ of loop 
+//     // YC： in loop - index/ of loop 
 //   for (let pokemon of pokemons) {
 //     if (pokemon.name === pokemonQuery) {
 //       console.log(pokemon)
@@ -86,6 +69,22 @@ router.get('/myPokemon', auth_middleware, function(request, response) {
 //   res.send(foundPokemon);
   
 // });
+
+// 下面这个只是我该写的：
+router.get('/find/:pokemonName', function(req, res) {
+  const pokemonQuery = req.params.pokemonName;
+  return PokemonModel.findPokemonByName(pokemonQuery)
+  .then((pokemonResponse) => {
+      if(!pokemonResponse) {
+          res.status(404).send("Pkm not found");
+      }  
+      res.send(pokemonResponse)
+  })
+  .catch((error) => response.status(500).send("Issue getting Pkm"))  
+});
+
+
+
 
 router.post('/create', auth_middleware, (request, response) => {
   // .body
@@ -115,21 +114,10 @@ router.post('/create', auth_middleware, (request, response) => {
     //   }
 
     // }
-      
-    
 
-  // pokemons.push({
-  //   name: name,
-  //   health: health,
-  // })
-
-  // response.send("Success!")
 
 })
 
-router.get('/about', function(req, res) {
-  res.send('Food is the best');
-});
 
 // Export Modules：
 // 在一个file/module中，用到export时，export作用：

@@ -1,11 +1,7 @@
-// 下面这些都是准备工作啦
-// import mongoose，以及用到的Schema，用mongoose.model建立model，这样的话就可以用instance调用写好的function 
 const mongoose = require("mongoose")
 const JobSchema = require('../schema/Job.Schema').JobSchema
 const JobModel = mongoose.model("Job", JobSchema);
-// 下面的func帮我向mongodb query
 
-// input是一个obj
 function insertJob(job) {
     return JobModel.create(job);
 }
@@ -31,11 +27,12 @@ function findJobByLocation(location) {
         location: location
     }).exec();
 }
-
-// findById 有这个特殊的
-// function findPokemonById(id) {
-//     return PokemonModel.findById(id).exec();
-// }
+//JobModel.findById 我觉得不能这么用， 所以从新写了
+function findJobById(id) {
+    return JobModel.find({
+        id: id
+    }).exec();
+}
 
 
 module.exports = {
@@ -44,5 +41,5 @@ module.exports = {
     findJobByLocation,
     getAllJobs,
     findJobByTitleExactly,
-    // findPokemonById
+    findJobById
 };

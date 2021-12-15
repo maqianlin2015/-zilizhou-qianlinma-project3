@@ -14,19 +14,24 @@ import JobSearch from './JobSearch';
 import JobList from './JobList';
 import AllJobs from './AllJobs';
 import AddJob from './AddJob';
+import JobDetails from './JobDetails';
+// import JobSearchResultList from './JobSearchResultList';
 
 ReactDOM.render(
   <Router>
     <Logout />
     <Routes>
-      <Route path="/add" element={<AddJob />} /> 
+      <Route path="/addJob" element={<AddJob />} /> 
       <Route path="/alljobs" element={<AllJobs />} /> 
       <Route path="/jobSearch" element={<JobSearch />} /> 
-      <Route path="/jobSearchResult" element={<JobList />} /> 
+      {/* <Route path="/jobSearch/:jobSearchQuery" element={<JobSearchResultList />} />  */}
+      <Route path="/alljobs/:jobId" element={<JobDetails />} />
+
       <Route path="/" element={<Register />} />
       <Route path="/myPokemon" element={<PokemonTracker />} />
       <Route path="/list" element={<PokemonList />} />
-      <Route path="/pokemonSearch/:searchQuery" element={<PokemonSearch />} />
+      {/* <Route path="/pokemonSearch/:searchQuery" element={<PokemonSearch />} /> */}
+      <Route path="/pokemonSearch" element={<PokemonSearch />} />
       <Route path="/pokemon/:pokemonName" element={<PokemonDetails />} />
     </Routes>
   </Router>
@@ -34,7 +39,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

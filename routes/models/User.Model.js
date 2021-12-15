@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const UserSchema = require('../schema/User.Schema').UserSchema
-
 const UserModel = mongoose.model("User", UserSchema);
 
 function insertUser(user) {
