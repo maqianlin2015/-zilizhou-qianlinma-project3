@@ -71,19 +71,19 @@ router.get('/myPokemon', auth_middleware, function(request, response) {
 // });
 
 // 下面这个只是我该写的：
-router.get('/find/:pokemonName', function(req, res) {
+router.get('/find/findPkmByName/:pokemonName', function(req, res) {
+  console.log("我精准找到了/find/findPkmByName/:pokemonName函数后端，并进入了函数");
   const pokemonQuery = req.params.pokemonName;
-  return PokemonModel.findPokemonByName(pokemonQuery)
+  return PokemonAccessor.findPokemonByName(pokemonQuery)
   .then((pokemonResponse) => {
       if(!pokemonResponse) {
           res.status(404).send("Pkm not found");
-      }  
-      res.send(pokemonResponse)
+      } else { 
+      res.status(200).send(pokemonResponse)
+      }
   })
   .catch((error) => response.status(500).send("Issue getting Pkm"))  
 });
-
-
 
 
 router.post('/create', auth_middleware, (request, response) => {

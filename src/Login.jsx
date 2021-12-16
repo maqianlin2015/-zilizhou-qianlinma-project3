@@ -14,7 +14,7 @@ export default (props) => {
 
     return (
         <div>
-            <h1>Register</h1>
+            <h1>Login</h1>
             <h5>Username:</h5>
             <input value={userData.username} onChange={(e) => {
                 const username = e.target.value;
@@ -41,7 +41,7 @@ export default (props) => {
                         })
                         .catch(error => console.log(error));
                 }}
-            >Register New User</button>
+            >Login</button>
 
         </div>
     );

@@ -11,9 +11,7 @@ router.get('/findAll', function(request, response) {
 
 // find by job id. 用于对一个certain job做detail
 router.get('/find/findById/:jobId', (request, response) => {
-  console.log("成功跑了jobs。js中的get find by id");
   const jobIdSearch = request.params.jobId;
-  console.log("this is jobId: " + jobIdSearch);
   return JobAccessor.findJobById(jobIdSearch)
     .then((jobResponse) =>{
         if(!jobResponse) {
@@ -25,12 +23,11 @@ router.get('/find/findById/:jobId', (request, response) => {
     .catch((error) => response.status(500).send("Issue getting job"))
 })
 
-
-router.get('/find/:searchTitle', (request, response) => {
+router.get('/find/findByTitle/:searchTitle', (request, response) => {
     const searchTitle = request.params.searchTitle;
     console.log("this is searchTitle: " + searchTitle);
     const caseInsensitiveSearchTitle =  searchTitle.toLowerCase();
-    return JobModel.findJobByTitleExactly(caseInsensitiveSearchTitle)
+    return JobAccessor.findJobByTitleExactly(caseInsensitiveSearchTitle)
       .then((jobResponse) => {
           if(!jobResponse) {
               response.status(404).send("Job not found");

@@ -10,24 +10,28 @@ import reportWebVitals from './reportWebVitals';
 import Register from './Register';
 import PokemonTracker from './PokemonTracker';
 import Logout from './Logout';
-import JobSearch from './JobSearch';
-import JobList from './JobList';
 import AllJobs from './AllJobs';
+
 import AddJob from './AddJob';
 import JobDetails from './JobDetails';
-// import JobSearchResultList from './JobSearchResultList';
+import JobSearch from './JobSearch';
+import JobSearchResult from './JobSearchResult';
+// import Login from '/Login';
 
 ReactDOM.render(
   <Router>
     <Logout />
     <Routes>
-      <Route path="/addJob" element={<AddJob />} /> 
-      <Route path="/alljobs" element={<AllJobs />} /> 
+       {/* <Route path="/alljobs" element={<AllJobs />} />  */}
+       {/* <Route path="/alljobs/:jobId" element={<JobDetails />} /> */}
+      <Route path="/addJob" element={<AddJob />} />  
+      <Route path="/job/:jobId" element={<JobDetails />} />       
       <Route path="/jobSearch" element={<JobSearch />} /> 
-      {/* <Route path="/jobSearch/:jobSearchQuery" element={<JobSearchResultList />} />  */}
-      <Route path="/alljobs/:jobId" element={<JobDetails />} />
+      <Route path="/jobSearch/:jobSearchQuery" element={<JobSearchResult />} /> 
 
       <Route path="/" element={<Register />} />
+      {/* <Route path="/login" element={<Login />} /> */}
+
       <Route path="/myPokemon" element={<PokemonTracker />} />
       <Route path="/list" element={<PokemonList />} />
       {/* <Route path="/pokemonSearch/:searchQuery" element={<PokemonSearch />} /> */}
