@@ -1,12 +1,10 @@
 #search_box {
     background: #FFFFFF;
-    /* margin-top:  320;
-    margin-left: 120 ; 
-    margin-right:  120; */
+    margin-top: 5%;
     box-shadow: 0 3px 10px 0 rgba(0,0,0,.2);
-    padding: 6;
+    /* padding: 6; */
     width: 50%;
- 
+    margin-left: 26%;
   }
   .search {
     width: 50%;

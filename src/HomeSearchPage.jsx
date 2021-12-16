@@ -25,7 +25,7 @@ export default function SearchPage() {
     <div>
       <section id="search_box">
       {errorMsg}
-      <input type='text' value={formInput}
+      <input type='text' value={formInput} className="search" placeholder="Job title"
         onChange={(e) => {
           setError(null);
           setFormInput(e.target.value)
