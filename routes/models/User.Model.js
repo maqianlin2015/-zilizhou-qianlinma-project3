@@ -13,6 +13,10 @@ function getAllUsers() {
 function findUserByUsername(username) {
     return UserModel.findOne({username}).exec();
 }
+// return obj!
+// function findFavoriteJobIdListByUsername(username) {
+//     return UserModel.findOne({username}).exec().favorites;
+// }
 
 module.exports = {
     insertUser,

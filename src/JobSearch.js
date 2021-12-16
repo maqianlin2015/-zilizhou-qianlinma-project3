@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router';
 
@@ -8,45 +8,81 @@ function App() {
   const [job, setJob] = useState({
     title: 'No job selected',
   })
+  const [currentUserName, setCurrentUserName] = useState('');
   const [errorMsg, setError] = useState(null);
 
   // useEffect(onSearchButtonClick, []);
 
-  function onSearchButtonClick() {    
+  function onSearchButtonClick() {
     if (!formInput) {
       setError("You must type in a Job name.");
       return;
     } else {
-        navigate("/jobSearch/" + formInput);
-        // 上面这里其实不s是all job， 应该是一个特殊制定的path，用到了form input的输入 
-        // alljob只是一个引子，开始做jobsearchresult
+      navigate("/jobSearch/" + formInput);
     }
-    // localhost:3000/jobSearch/api/jobs/find/findByTitle/seller
-    // axios.get('/api/pokemon/find/findPkmByName/' + formInput)
-    //   .then(response => {setPokemon(response.data)
-    //     navigate("/alljobs")
-    //   })
-    //   .catch(error => console.log("Could not find Pkm"));
-
   }
+
+  function checkLogin() {
+    axios.get('/api/users/whoIsLoggedIn')
+      .then((response) => {
+        console.log("Success");
+        // console.log(response);
+        setCurrentUserName(response.data);
+      })
+      .catch(() => navigate('/login'))
+  }
+
+  useEffect(checkLogin, []);
+
+  function onFavoriteListClick() {
+    if (!currentUserName) { // 其实这行没机会跑到
+      setError("You have to login first");
+      return;
+    } else {
+      navigate("/myFavorite/" + currentUserName);
+    }
+  }
+  // console.log("helper0");
+  // const helper = function helper0() {
+  //   console.log('current user: ' + currentUserName);
+  //   if (currentUserName) {
+  //     console.log("helper?");
+  //     return (<button onClick={onFavoriteListClick}>
+  //       My Favorite
+  //     </button>);
+  //   }
+  // }
+
+
+  const helperComponent = (currentUserName) ?
+    (<>
+      <div>
+        <button onClick={onFavoriteListClick}>
+          My Favorite
+        </button>;
+      </div>
+    </>) :
+    (<div></div>);
 
 
   return (
     <div>
       {errorMsg}
       <input type='text' value={formInput}
-      onChange={(e) => {
-        setError(null);
-        setFormInput(e.target.value)
-      
-      }} />
+        onChange={(e) => {
+          setError(null);
+          setFormInput(e.target.value)
+
+        }} />
       <button onClick={onSearchButtonClick}>
         Search for Job
       </button>
-
+      <div>
+        {helperComponent}
+      </div>
     </div>
- 
   );
 }
+
 
 export default App;

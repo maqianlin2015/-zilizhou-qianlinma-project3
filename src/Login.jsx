@@ -33,8 +33,7 @@ export default (props) => {
             }} type='password' />
             <button
                 onClick={() => {
-
-                    axios.post('/api/users/', userData)
+                    axios.post('/api/users/authenticate', userData)
                         .then(response => {
                             navigate("/jobSearch")
                             console.log(response)
@@ -45,5 +44,5 @@ export default (props) => {
 
         </div>
     );
-// 如果没注册过，就注册了并跳转主页，如果注册过了,error提示
+// error提示
 } 

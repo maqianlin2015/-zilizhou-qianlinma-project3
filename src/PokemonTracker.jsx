@@ -33,7 +33,7 @@ export default function PokemonTracker(props) {
             .then(() => console.log("Success"))
             .catch(() => navigate('/'))
     }
-    // 如没有login，就来主页了
+
     useEffect(checkLogin, []);
 
     useEffect(getMyPokemon, []);

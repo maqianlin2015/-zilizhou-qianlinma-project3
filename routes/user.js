@@ -1,7 +1,8 @@
 const { response } = require('express');
 const express = require('express');
 const router = express.Router();
-const UserModel = require('./models/User.Model');
+const UserModel = require('./models/User.Model')
+const JobModel = require('./models/Job.Model');
 const jwt = require('jsonwebtoken');
 // middleware
 const auth_middleware = require('./auth_middleware.js')
@@ -23,7 +24,6 @@ router.get('/findAll', function (request, response) {
 router.get('/whoIsLoggedIn', auth_middleware, function (request, response) {
     const username = request.session.username;
     return response.send(username);
-
 })
 // ？
 router.get('/whoIsLoggedInButWithoutMiddleware', function (request, response) {
@@ -49,37 +49,83 @@ router.get('/:username', (request, response) => {
             response.send(userResponse)
         })
         .catch((error) => response.status(500).send("Issue getting user"))
-
-    // pokemons.push({
-    //   name: name,
-    //   health: health,
-    // })
-
-    // response.send("Success!")
-
 })
-    /
+
+// router.get('/findMyFavorites/:username', async (request, response) => {
+router.get('/findMyFavorites/:username', (request, response) => {
+    const username = request.params.username;
+    if (!username) {
+        return response.status(422).send("Missing data");
+    
+    }
+    // let userEntry = await UserModel.findUserByUsername(username);
+    // return userEntry;
+
+    // if (!userEntry) {
+    //     return response.status(404);
+    // }
+    // let favorites = userEntry.favorites;
+    // let jobArr = [];
+    // for (let jobId of favorites) {
+    //     let jobEntry = await JobModel.findJobById(jobId);
+    //     if (!jobEntry) {
+    //         jobArr.push(jobEntry);
+    //     }
+    // }
+    // return jobArr;
+    return UserModel.findUserByUsername(username)
+        .then((userResponse) => {
+            if (!userResponse) {
+                response.status(404).send("User not found");
+            }
+            response.send(userResponse.favorites)
+        })
+        .catch((error) => response.status(500).send("Issue getting user"))
+})
+ 
+
+// router.get('/findMyFavirotes/:username', (request, response) => {
+//     const username = request.params.username;
+//     if (!username) {
+//         return response.status(422).send("Missing data");
+//     }
+//     return UserModel.findFavoriteJobIdListByUsername(username)
+//         .then((userResponse) => {
+//             if (!userResponse) {
+//                 response.status(404).send("User not found");
+//             }
+//             response.send(userResponse)
+//         })
+//         .catch((error) => response.status(500).send("Issue getting user"))
+// })
+
+
 
     router.post('/authenticate', function (request, response) {
         let { username, password } = request.body;
-        password = JSON.stringify(password);
-        console.log(password);
+        // password = JSON.stringify(password);
+        console.log(username, password);
         if (!username || !password) {
             return response.status(422).send('Must include both password and username');
         }
-
+        // 可能request出错了：
         return UserModel.findUserByUsername(username)
             .then((userResponse) => {
                 if (!userResponse) {
-                    return response.status(404).send("No user found with that username");
+                    console.log("1");
+                    return response.status(404).send("No user found");
                 }
-                if (userResponse.password === password) {
+                console.log(userResponse);
+                if (userResponse.password == password) {
+                    console.log("2");
                     request.session.username = username;
-                    //return response.cookie('huntersCookie', token, {httpOnly: true})
-                    return response.status(200).send({ username });
-                    // return response.status(200).send("User is logged in!")
+                    return response.status(200).send({ username } + "is logged in!");
                 } else {
-                    return response.status(404).send("No user found with that password");
+                    console.log("3");
+                    console.log(typeof userResponse.password);
+                    console.log(typeof password);
+                    
+                    return response.status(404).send("Wrong password");
                 }
             })
 
@@ -113,7 +159,7 @@ router.post('/', function (req, res) {
     if (!username || !password) {
         return res.status(422).send("Missing username: " + username + "or password:" + password)
     }
-    // get promise response
+
     UserModel.findUserByUsername(username)
         .then((userResponse) => {
             console.log(userResponse) 
