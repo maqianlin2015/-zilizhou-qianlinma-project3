@@ -36,7 +36,7 @@ export default (props) => {
 
                     axios.post('/api/users/', userData)
                         .then(response => {
-                            navigate("/jobSearch")
+                            // navigate("/jobSearch")
                             console.log(response)
                         })
                         .catch(error => console.log(error));

@@ -11,6 +11,7 @@ import Register from './Register';
 import PokemonTracker from './PokemonTracker';
 import Logout from './Logout';
 import AllJobs from './AllJobs';
+import HomePage from './HomePage';
 
 import AddJob from './AddJob';
 import JobDetails from './JobDetails';
@@ -23,13 +24,14 @@ ReactDOM.render(
   <Router>
     <Logout />
     <Routes>
+    <Route exact path={"/"} element={<HomePage></HomePage>} />
        {/* <Route path="/alljobs" element={<AllJobs />} />  */}
        {/* <Route path="/alljobs/:jobId" element={<JobDetails />} /> */}
       <Route path="/addJob" element={<AddJob />} />  
       <Route path="/job/:jobId" element={<JobDetails />} />       
       <Route path="/jobSearch" element={<JobSearch />} /> 
       <Route path="/jobSearch/:jobSearchQuery" element={<JobSearchResult />} /> 
-      <Route path="/" element={<Register />} />
+      <Route path="/register" element={<Register />} />
       
       <Route path="/login" element={<Login />} />
       <Route path="/myFavorite/:myusername" element={<MyFavoriteJob />} />
