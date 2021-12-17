@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
+import UserNavBar from './UserNavBar';
+import "./style/Job.css";
 
 export default function JobSearchResult() {
     const [selectedJob, setSelectedJob] = useState([]);
@@ -30,8 +32,9 @@ export default function JobSearchResult() {
 
     return (
         <div>
-            <h1>These are search result the jobs: </h1>
-            {jobListComponent}
+            <UserNavBar />
+            <h1 className="favoriate_result">These are search result the jobs: </h1>
+            <section id ="link" >{jobListComponent}</section>
         </div>
     )
 }

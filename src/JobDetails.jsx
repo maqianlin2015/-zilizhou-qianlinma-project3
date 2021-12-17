@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import UserNavBar from './UserNavBar';
+import "./style/Job.css";
 
 export default function () {
     const jobId = useParams().jobId;
@@ -36,8 +38,10 @@ export default function () {
         (<div> No Job found </div>);
     return (
         <div>
-            <h1>Details: </h1>
-            {jobDetailComponent}
+            {/*需要做一个navbar的判断*/}
+            <UserNavBar />
+            <h1 className="favoriate_result">Details: </h1>
+            <section id="job-detail"> {jobDetailComponent} </section>
         </div>
     )
 }

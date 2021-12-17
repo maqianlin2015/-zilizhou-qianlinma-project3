@@ -9,7 +9,7 @@ import PokemonSearch from './PokemonSearch';
 import reportWebVitals from './reportWebVitals';
 import Register from './Register';
 import PokemonTracker from './PokemonTracker';
-import Logout from './Logout';
+// import Logout from './Logout';
 import AllJobs from './AllJobs';
 import HomePage from './HomePage';
 
@@ -22,7 +22,7 @@ import MyFavoriteJob from './MyFavoriteJob';
 
 ReactDOM.render(
   <Router>
-    <Logout />
+    {/* <Logout /> */}
     <Routes>
     <Route exact path={"/"} element={<HomePage></HomePage>} />
        {/* <Route path="/alljobs" element={<AllJobs />} />  */}

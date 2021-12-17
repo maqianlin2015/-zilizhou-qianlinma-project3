@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router';
+import NavBar from './NavBar';
+import "./style/LoginRegister.css";
 
 
 export default (props) => {
@@ -14,9 +16,11 @@ export default (props) => {
 
     return (
         <div>
-            <h1>Register</h1>
+            <NavBar />
+            <section className="form">
+            {/* <h1>Register</h1> */}
             <h5>Username:</h5>
-            <input value={userData.username} onChange={(e) => {
+            <input className="input" value={userData.username} onChange={(e) => {
                 const username = e.target.value;
                 setUserData({
                     ...userData,
@@ -24,16 +28,15 @@ export default (props) => {
                 })
             }}/>
             <h5>Password:</h5>
-            <input value={userData.password} onChange={(e) => {
+            <input className="input"value={userData.password} onChange={(e) => {
                 const password = e.target.value;
                 setUserData({
                     ...userData,
                     password: password
                 })
             }} type='password' />
-            <button
+            <button id="log-register-btn"
                 onClick={() => {
-
                     axios.post('/api/users/', userData)
                         .then(response => {
                             // navigate("/jobSearch")
@@ -41,7 +44,8 @@ export default (props) => {
                         })
                         .catch(error => console.log(error));
                 }}
-            >Register New User</button>
+            ><b>Register</b></button>
+            </section>
 
         </div>
     );

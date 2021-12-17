@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom';
 export default function NavBar(){
     let navigate = useNavigate();
 
-    function handleClick(){
-        navigate("/login");
-    }
+    // function handleClick(){
+    //     navigate("/login");
+    // }
 
+    
     return(
         <nav>
             <div className='div-header'>
@@ -21,7 +22,7 @@ export default function NavBar(){
                     <JobSearchLogo/>
                 </div>
                 <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                    <NavLink exact to='/Home' ><Home className='div-svg'/></NavLink>
+                    <NavLink exact to='/' ><Home className='div-svg'/></NavLink>
                     <Link to={"/login"}>
                         <button className='button-header' ><b>Log in</b></button></Link>
                     <div className="divider"/>

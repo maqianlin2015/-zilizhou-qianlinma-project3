@@ -2,11 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
+import "./style/Job.css";
+import UserNavBar from './UserNavBar';
+
 
 export default function MyFavoriteJob() {
     const [myfavoriteJobsListID, setMyFavoriteJobsListID] = useState([]);
     const myusername = useParams().myusername;
-    const [currentUser, setCurrentUser] = useState();
+   
   
     const [jobArray, setJobArray] = useState([]); 
 
@@ -70,7 +73,7 @@ export default function MyFavoriteJob() {
 
     const helperComponent = (jobArray.length > 0) ?
     (<>
-    {  console.log(jobArray)};
+    {  console.log(jobArray)}
         {favoritejobListComponent}
     </>) :
     (<div></div>);
@@ -91,8 +94,9 @@ export default function MyFavoriteJob() {
 
     return (
         <div>
-            <h1>My favorite jobs: </h1>
-            {helperComponent}
+            <UserNavBar />
+            <h1 className="favoriate_result">My favorite jobs</h1>
+            <section id="link"> {helperComponent} </section>
         </div>
     )
 }

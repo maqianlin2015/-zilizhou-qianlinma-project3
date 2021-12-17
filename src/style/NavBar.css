@@ -39,8 +39,21 @@ nav{
     padding: 10px 25px;
     color: white;  
     cursor: pointer;
+    
 }
+
+
 .divider{
     width: 5px;
     display: inline-block;
 }
+
+#dropdown-basic{
+   border: none;
+    padding: 10px 25px;
+    background-color: white;
+    /* color: white;   */
+    cursor: pointer;
+
+}
+

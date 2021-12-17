@@ -1,14 +1,23 @@
-import { useEffect, useState } from 'react';
-import axios, { Axios } from 'axios';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from "react";
+import axios, { Axios } from "axios";
+import { useNavigate } from "react-router";
+import { NavLink } from "react-router-dom";
+import { ReactComponent as Home } from "./logos/home.svg";
+import { ReactComponent as JobSearchLogo } from "./logos/search-logo.svg";
+import { ReactComponent as Favoriate } from "./logos/favoriate.svg";
+import "./style/NavBar.css";
+import "./style/HomeSearchPage.css";
+import { Link } from "react-router-dom";
+import UserNavBar from "./UserNavBar";
+import NavBar from "./NavBar";
 
 function App() {
   const navigate = useNavigate();
-  const [formInput, setFormInput] = useState('');
+  const [formInput, setFormInput] = useState("");
   const [job, setJob] = useState({
-    title: 'No job selected',
-  })
-  const [currentUserName, setCurrentUserName] = useState('');
+    title: "No job selected",
+  });
+  const [currentUserName, setCurrentUserName] = useState("");
   const [errorMsg, setError] = useState(null);
 
   // useEffect(onSearchButtonClick, []);
@@ -23,25 +32,28 @@ function App() {
   }
 
   function checkLogin() {
-    axios.get('/api/users/whoIsLoggedIn')
+    axios
+      .get("/api/users/whoIsLoggedIn")
       .then((response) => {
         console.log("Success");
         // console.log(response);
         setCurrentUserName(response.data);
       })
-      .catch(() => navigate('/login'))
+      .catch(() => navigate("/login"));
   }
 
   useEffect(checkLogin, []);
 
   function onFavoriteListClick() {
-    if (!currentUserName) { // 其实这行没机会跑到
+    if (!currentUserName) {
+      // 其实这行没机会跑到
       setError("You have to login first");
       return;
     } else {
       navigate("/myFavorite/" + currentUserName);
     }
   }
+
   // console.log("helper0");
   // const helper = function helper0() {
   //   console.log('current user: ' + currentUserName);
@@ -53,21 +65,48 @@ function App() {
   //   }
   // }
 
+  // const helper = (currentUserName) ? (return( <UserNavBar/>) : (<NavBar/);
 
-  const helperComponent = (currentUserName) ?
-    (<>
+  const helperComponent = currentUserName ? (
+    <>
       <div>
-        <button onClick={onFavoriteListClick}>
-          My Favorite
-        </button>;
+        <button onFavoriteListClick>
+          <b>My Favorite</b>
+        </button>
+        {/*zili： 删掉了一个分号*/}
       </div>
-    </>) :
-    (<div></div>);
+    </>
+  ) : (
+    <div></div>
+  );
 
+  const tmp = function x() {
+    currentUserName ? <UserNavBar /> : <NavBar />;
+  };
 
   return (
     <div>
-      {errorMsg}
+      {/* 写navbar */}
+      
+      <UserNavBar />
+      <section id="search_box">
+        {tmp}
+        {errorMsg}
+        <input
+          type="text"
+          value={formInput}
+          className="search"
+          placeholder="Job title"
+          onChange={(e) => {
+            setError(null);
+            setFormInput(e.target.value);
+          }}
+        />
+      </section>
+      <button id="btn" onClick={onSearchButtonClick}>
+        Search for Job
+      </button>
+      {/* qianlin's part {errorMsg}
       <input type='text' value={formInput}
         onChange={(e) => {
           setError(null);
@@ -79,10 +118,9 @@ function App() {
       </button>
       <div>
         {helperComponent}
-      </div>
+      </div> */}
     </div>
   );
 }
-
 
 export default App;
