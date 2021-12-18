@@ -33,3 +33,9 @@
     cursor: pointer;
     display: block;
   }
+
+  #msg{
+    font-family:'Courier New', Courier, monospace;
+    color: red;
+    font-size: 5;
+  }

@@ -18,19 +18,22 @@ export default function () {
     useEffect(findJobDetails, []);
     console.log(job); // 所以job这里是一个{} of []
 
+  
+
     const jobDetailComponent = job ? 
     
     (
         job.map(j => {
             return (<>
-                <div> Job Title: {j.title} </div>
-                <div> Company: {j.companyName} </div>     
-                <div> Location: {j.location} </div>     
-                <div> Description: {j.description} </div>     
-                <div> Emploter Email: {j.employerEmail} </div>     
-                <div> Company Link: {j.companyLink} </div>     
-                <div> Post Date: {j.postdate} </div>     
-        
+            
+                <div> <b>Job Title:</b> {j.title} </div>
+                <div> <b>Company:</b> {j.companyName} </div>     
+                <div> <b>Location:</b> {j.location} </div>     
+                <div> <b>Description:</b> {j.description}</div>     
+                <div> <b>Employer Email:</b> <a href="mailto:m.bluth@example.com">{j.employerEmail}</a> </div>     
+                {j.companyLink  && <div> <b>Company Link:</b>{j.companyLink} </div>}     
+                <div> <b>Post Date:</b> {j.postdate} </div>     
+                
 
             </>)
         }) 

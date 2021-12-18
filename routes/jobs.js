@@ -27,7 +27,7 @@ router.get('/find/findByTitle/:searchTitle', (request, response) => {
     const searchTitle = request.params.searchTitle;
     console.log("this is searchTitle: " + searchTitle);
     const caseInsensitiveSearchTitle =  searchTitle.toLowerCase();
-    return JobAccessor.findJobByTitleExactly(caseInsensitiveSearchTitle)
+    return JobAccessor.findJobByTitle(caseInsensitiveSearchTitle)
       .then((jobResponse) => {
           if(!jobResponse) {
               response.status(404).send("Job not found");
@@ -50,7 +50,7 @@ router.post('/create', auth_middleware, (request, response) => {
   // 收到request body，要title转成小写的：
   // job.title = job.title.toLowerCase();
   if(!job.id ||!job.title || !job.location || !job.companyName || !job.description || !job.employerEmail
-    || !job.companyLink || !job.postdate) {
+    || !job.postdate) {
     return response.status(422).send("Missing data");
   }
 

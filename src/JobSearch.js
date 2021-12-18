@@ -44,6 +44,19 @@ function App() {
 
   useEffect(checkLogin, []);
 
+  // function checkLogout() {
+  //   axios
+  //     .get("/api/users/logout")
+  //     .then((response) => {
+  //       console.log("Logout!");
+  //       // console.log(response);
+  //       setCurrentUserName(null);
+  //     })
+  //     .catch(() => navigate("/"));
+  // }
+
+  // useEffect(checkLogout, []);
+
   function onFavoriteListClick() {
     if (!currentUserName) {
       // 其实这行没机会跑到
@@ -79,18 +92,15 @@ function App() {
   ) : (
     <div></div>
   );
-
-  const tmp = function x() {
-    currentUserName ? <UserNavBar /> : <NavBar />;
-  };
+  // console.log("curUserName" + currentUserName);
+  // const tmp = currentUserName ? <UserNavBar /> : <NavBar />;
 
   return (
     <div>
       {/* 写navbar */}
-      
+      {/* {tmp} */}
       <UserNavBar />
       <section id="search_box">
-        {tmp}
         {errorMsg}
         <input
           type="text"

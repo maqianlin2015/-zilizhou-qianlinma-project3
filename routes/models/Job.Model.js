@@ -19,7 +19,7 @@ function findJobByTitleExactly(title) {
 // 用到： 与查询数组中指定的值中的任何一个匹配  $in
 // Model.find({ age: { $in: [16, 18]} })  返回 age 字段等于 16 或者 18 的所有 document。
 function findJobByTitle(title) {
-    return JobModel.find({title: { $in: [title]} }).exec();
+    return JobModel.find({title: { $regex: ".*" + title + ".*"}}).exec();
 }
 
 function findJobByLocation(location) {

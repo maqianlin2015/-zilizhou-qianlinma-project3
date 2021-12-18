@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 import "./style/HomeSearchPage.css";
-
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const [formInput, setFormInput] = useState('');
+  const [formInput, setFormInput] = useState("");
   const [job, setJob] = useState({
-    title: 'No job selected',
-  })
+    title: "No job selected",
+  });
 
   const [errorMsg, setError] = useState(null);
 
@@ -24,17 +23,21 @@ export default function SearchPage() {
   return (
     <div>
       <section id="search_box">
-      {errorMsg}
-      <input type='text' value={formInput} className="search" placeholder="Job title"
-        onChange={(e) => {
-          setError(null);
-          setFormInput(e.target.value)
-        }} />
-        </section>
-      <button id ="btn" onClick={onSearchButtonClick}>
+        {errorMsg}
+        <input
+          type="text"
+          value={formInput}
+          className="search"
+          placeholder="Job title"
+          onChange={(e) => {
+            setError(null);
+            setFormInput(e.target.value);
+          }}
+        />
+      </section>
+      <button id="btn" onClick={onSearchButtonClick}>
         Search for Job
       </button>
     </div>
-  )
+  );
 }
-  

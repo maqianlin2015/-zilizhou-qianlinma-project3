@@ -1,5 +1,5 @@
 import React, { Component} from "react";
-import SearchPage from "./HomeSearchPage";
+import HomeSearchPage from "./HomeSearchPage";
 import "./style/HomePage.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Header from "./Header";
@@ -22,7 +22,7 @@ class HomePage extends Component{
             {/* <Particles className={classes.particles} params={particlesOptions} /> */}
             <NavBar />
             <Header />
-            <SearchPage searchChange={this.onSearchChange}/>  
+            <HomeSearchPage searchChange={this.onSearchChange}/>  
           </div>
         );
       }

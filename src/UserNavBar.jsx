@@ -49,15 +49,14 @@ export default function UserNaBar() {
             </Link>
             <Dropdown>
               <Dropdown.Toggle split variant="success" id="dropdown-basic">
-                {currentUserName} ☰
+              {currentUserName} 
               </Dropdown.Toggle >
-              <Dropdown.Menu>
-                <Dropdown.Item as={Link} to="/addJob">
-                  Add A Job
-                </Dropdown.Item>
-              </Dropdown.Menu>
             </Dropdown>
-
+            <Link to={"/addJob"}>
+              <button className="button-header">
+                <b>Add Job</b>
+              </button>
+            </Link>
             <div className="divider" />
             <Link to={"/"}>
               <button className="button-header">

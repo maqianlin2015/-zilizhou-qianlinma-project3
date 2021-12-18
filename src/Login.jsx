@@ -13,6 +13,26 @@ export default (props) => {
     })
 
     const [loggedInName, setLoggedInName] = useState('');
+    const [errorMsg, setError] = useState(null);
+
+    function onLogInonClick() {
+        if (
+          !(
+            userData.password && userData.username
+          )
+        ) {
+          setError("You must fill all field!");
+          return;
+        }
+    
+        axios.post('/api/users/authenticate', userData)
+                        .then(response => {
+                            navigate("/jobSearch")
+                            console.log(response)
+                        })
+                        .catch(error => console.log(error));
+      }
+    
 
     return (
         <div>
@@ -20,7 +40,7 @@ export default (props) => {
             <section className="form">
             {/* <h1>Login</h1> */}
             <h5>Username:</h5>
-            <input  className="input" value={userData.username} onChange={(e) => {
+            <input  className="input" value={userData.username} onChange={(e) => { setError(null);
                 const username = e.target.value;
                 setUserData({
                     ...userData,
@@ -28,23 +48,24 @@ export default (props) => {
                 })
             }}/>
             <h5>Password:</h5>
-            <input  className="input" value={userData.password} onChange={(e) => {
+            <input  className="input" value={userData.password} onChange={(e) => { setError(null);
                 const password = e.target.value;
                 setUserData({
                     ...userData,
                     password: password
                 })
             }} type='password' />
-            <button  id="log-register-btn"
-                onClick={() => {
-                    axios.post('/api/users/authenticate', userData)
-                        .then(response => {
-                            navigate("/jobSearch")
-                            console.log(response)
-                        })
-                        .catch(error => console.log(error));
-                }}
+            <button  id="log-register-btn" onClick={onLogInonClick}
+                // onClick={() => {
+                //     axios.post('/api/users/authenticate', userData)
+                //         .then(response => {
+                //             navigate("/jobSearch")
+                //             console.log(response)
+                //         })
+                //         .catch(error => console.log(error));
+                // }}
             ><b>Login</b></button>
+            <p id='msg'><b>{errorMsg}</b></p>
             </section>
 
         </div>
