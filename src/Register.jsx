@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import NavBar from "./NavBar";
 import "./style/LoginRegister.css";
 
 export default (props) => {
@@ -9,37 +8,15 @@ export default (props) => {
   const [errorMsg, setError] = useState(null);
   const [userData, setUserData] = useState({
     password: "",
-    // passwordVerification:'',
+
     username: "",
   });
   const [passwordVerification, setPasswordVerification] = useState("");
 
-  const [loggedInName, setLoggedInName] = useState("");
-  // const [errorMsg, setError] = useState(null);
-
-  //验证密码匹配function
-  // function onRegisterClick(){
-  //     if (userData.password !== userData.passwordVerification){
-  //         setError ("The password does not match.");
-  //         return;}
-  //     else {axios.post('/api/users/', userData)
-  //     .then(response => {
-  //         // navigate("/jobSearch")
-  //         console.log(response)
-  //     })
-  //     .catch(error => console.log(error));
-  //     return("success")
-  //     }
-  //     }
-
   const verf = passwordVerification == userData.password ? true : false;
 
   function onRegisteronClick() {
-    if (
-      !(
-        userData.password && userData.username && passwordVerification
-      )
-    ) {
+    if (!(userData.password && userData.username && passwordVerification)) {
       setError("You must fill all field!");
       return;
     }
@@ -48,24 +25,16 @@ export default (props) => {
       return;
     }
     axios
-                .post("/api/users/", userData)
-                .then((response) => {
-                  //   navigate("/jobSearch")
-                  navigate("/jobSearch");
-                  //   console.log(userData);
-                  //   console.log(response);
-                })
-                .catch((error) => console.log(error));
+      .post("/api/users/", userData)
+      .then((response) => {
+        navigate("/jobSearch");
+      })
+      .catch((error) => console.log(error));
   }
-
-  //   useEffect(verf, [passwordVerification]);
 
   return (
     <div>
-      <NavBar />
       <section className="form">
-        {/* {errorMsg} */}
-        {/* <h1>Register</h1> */}
         <h5>Username:</h5>
         <input
           className="input"
@@ -91,12 +60,12 @@ export default (props) => {
               password: password,
             });
           }}
-            type="password"
+          type="password"
         />
         <h5>Password Verification:</h5>
         <input
           className="input"
-            type="password"
+          type="password"
           value={passwordVerification}
           onChange={(e) => {
             setError(null);
@@ -104,31 +73,13 @@ export default (props) => {
             setPasswordVerification(passwordVerification);
           }}
         />
-        <button
-          id="log-register-btn"
-          onClick={onRegisteronClick}
-
-          // onClick={() => {
-          //   if (verf) {
-          //     axios
-          //       .post("/api/users/", userData)
-          //       .then((response) => {
-          //         //   navigate("/jobSearch")
-          //         navigate("/jobSearch");
-          //         //   console.log(userData);
-          //         //   console.log(response);
-          //       })
-          //       .catch((error) => console.log(error));
-          //   } else {
-          //     console.log("Password did not match the previous one!");
-          //   }
-          // }}
-        >
+        <button id="log-register-btn" onClick={onRegisteronClick}>
           <b>Register</b>
         </button>
-        <p id="msg"><b>{errorMsg}</b></p>
+        <p id="msg">
+          <b>{errorMsg}</b>
+        </p>
       </section>
     </div>
   );
-  // 如果没注册过，就注册了并跳转主页，如果注册过了,error提示
 };

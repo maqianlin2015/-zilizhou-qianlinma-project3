@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import UserNavBar from "./UserNavBar";
 import "./style/LoginRegister.css";
 const { v4: uuid } = require("uuid");
 
@@ -81,7 +80,7 @@ export default function AddJob(props) {
 
   return (
     <div>
-      <UserNavBar />
+     
       <section className="job-container">
         <h5>Title:</h5>
         <input

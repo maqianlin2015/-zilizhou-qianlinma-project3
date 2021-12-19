@@ -14,13 +14,6 @@ exports.UserSchema = new Schema({
     collection: 'users'
 })
 
-/*
-new Schema {
 
-    username: String,
-    favoriteId: favoriteID
-}
-
-*/
 
 

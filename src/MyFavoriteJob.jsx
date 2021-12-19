@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import "./style/Job.css";
-import UserNavBar from './UserNavBar';
+
 
 
 export default function MyFavoriteJob() {
@@ -13,27 +13,6 @@ export default function MyFavoriteJob() {
   
     const [jobArray, setJobArray] = useState([]); 
 
-    // function checkLogin() {
-    //     axios.get('/api/users/whoIsLoggedIn')
-    //         .then(() => {
-    //             console.log("Success");
-    //             setCurrentUserName(req.session.username);
-    //         })
-    //         .catch(() => navigate('/login'))
-    // }
-
-
-
-//执行到25行24行没有更新完 
-    // function getUserFavoriteJobIDList() {
-    //     axios.get('/api/users/' + myusername)
-    //         .then(response => {
-    //             setCurrentUser(response.data);
-    //             setMyFavoriteJobsListID(response.data.favorites);
-    //             console.log(response.data.favorites);
-    //         })
-    //         .catch(error => console.error(error));
-    // }
 
 
 
@@ -58,8 +37,7 @@ export default function MyFavoriteJob() {
 
     useEffect(getUserFavoriteJobIDList, []);
  
-    // console.log(myFavoriteJobIdList);
-    // useEffect(checkLogin, []);
+  
   
     const favoritejobListComponent = jobArray.map(job => {
         console.log(job);
@@ -78,23 +56,10 @@ export default function MyFavoriteJob() {
     </>) :
     (<div></div>);
 
-    // function findJob(jobId) { 
-    //     axios.get('/api/jobs/find/findById/' + jobId)
-    //         .then(response => {
-    //             return response.data;
-    //         })
-    //         .catch(error => console.error(error));
-    // }
-
-    // console.log(myFavoriteList);
-
-    // useEffect(findAllMyFavoriteJobs, []);
-
  
 
     return (
         <div>
-            <UserNavBar />
             <h1 className="favoriate_result">My favorite jobs</h1>
             <section id="link"> {helperComponent} </section>
         </div>

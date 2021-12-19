@@ -6,7 +6,7 @@
 const express = require('express');
 // 其实啊，一个module是一个js lib or file，你可以import它everywhere，所以使用require（...）
 // 像下面的例子，require（）里面可以是file path，也可以是module name；把return放到const中作为一个obj
-const pokemon = require('./routes/pokemon.js');
+// const pokemon = require('./routes/pokemon.js');
 const users = require('./routes/user.js');
 const jobs = require('./routes/jobs.js');
 const cors = require('cors');
@@ -74,7 +74,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //下面意思：如果收到任何method形式的requests /api/pokemon开头的前缀url，那就send it to const pokemon 
 // 即 第九行 pokemon （也就是一个pokemon.js文件实际上）
-app.use('/api/pokemon', pokemon); // PS： pokemon.js中，看我的<1>
+// app.use('/api/pokemon', pokemon); // PS： pokemon.js中，看我的<1>
 app.use('/api/users', users);
 app.use('/api/jobs', jobs);
 // Note that it is common practice got backend APIs in Node to start with the api prefix

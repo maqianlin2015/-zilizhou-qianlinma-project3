@@ -19,7 +19,6 @@ export default function JobSearchBar() {
 
     const jobListComponent = allJob.map(job => {
         return (<>
-            {/* <p>{job.title} - {job.location} - {job.companyName}</p> */}
             <p>
                 <Link to={job.id}>{job.title} - {job.location} - {job.companyName}</Link>
             </p>
